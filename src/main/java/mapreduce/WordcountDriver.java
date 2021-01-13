@@ -15,30 +15,30 @@ public class WordcountDriver {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		System.out.println("Word count driver");
-		// 1 »ñÈ¡ÅäÖÃĞÅÏ¢ÒÔ¼°·â±ÕÈÎÎñ
+		// 1 è·å–é…ç½®ä¿¡æ¯ä»¥åŠå°é—­ä»»åŠ¡
 		Configuration configuration = new Configuration();
 		Job job = Job.getInstance(configuration);
 
-		// 2 ÉèÖÃjar¼ÓÔØÂ·¾¶
+		// 2 è®¾ç½®jaråŠ è½½è·¯å¾„
 		job.setJarByClass(WordcountDriver.class);
 
-		// 3ÉèÖÃmapºÍreduceÀà
+		// 3è®¾ç½®mapå’Œreduceç±»
 		job.setMapperClass(WordcountMapper.class);
 		job.setReducerClass(WordcountReducer.class);
 
-		// 4ÉèÖÃmapÊä³ö
+		// 4è®¾ç½®mapè¾“å‡º
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(IntWritable.class);
 
-		// 5ÉèÖÃ×îÖÕÊä³ökvÀàĞÍ
+		// 5è®¾ç½®æœ€ç»ˆè¾“å‡ºkvç±»å‹
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 
-		// 6 ÉèÖÃÊäÈëºÍÊä³öÂ·¾¶
+		// 6 è®¾ç½®è¾“å…¥å’Œè¾“å‡ºè·¯å¾„
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-		// 7 Ìá½»
+		// 7 æäº¤
 		boolean result = job.waitForCompletion(true);
 		System.exit(result ? 0 : 1);
 	}

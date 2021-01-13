@@ -13,12 +13,12 @@ public class WordcountReducer extends Reducer<Text, IntWritable, Text, IntWritab
 	@Override
 	protected void reduce(Text key, Iterable<IntWritable> values,
 			Reducer<Text, IntWritable, Text, IntWritable>.Context context) throws IOException, InterruptedException {
-		// 1累计求和
+		// 1绱姹傚拰
 		sum = 0;
 		for (IntWritable count : values) {
 			sum += count.get();
 		}
-		// 2输出
+		// 2杈撳嚭
 		v.set(sum);
 		context.write(key, v);
 	}

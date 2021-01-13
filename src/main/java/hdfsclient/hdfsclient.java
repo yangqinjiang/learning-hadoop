@@ -21,116 +21,116 @@ import org.junit.Test;
 
 public class hdfsclient {
 
-	// ´´½¨Ä¿Â¼
+	// åˆ›å»ºç›®å½•
 	@Test
 	public void testMkdir() throws IOException, InterruptedException, URISyntaxException {
 
-		// 1 »ñÈ¡ÎÄ¼şÏµÍ³
+		// 1 è·å–æ–‡ä»¶ç³»ç»Ÿ
 		Configuration configuration = new Configuration();
-		// ÅäÖÃÔÚ¼¯ÈºÉÏÔËĞĞ
+		// é…ç½®åœ¨é›†ç¾¤ä¸Šè¿è¡Œ
 		// configuration.set("fs.defaultFS", "hdfs://hadoop102:9000");
 		// FileSystem fs = FileSystem.get(configuration);
 
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 ´´½¨Ä¿Â¼
+		// 2 åˆ›å»ºç›®å½•
 		fs.mkdirs(new Path("/1108/daxian/banzhang4"));
 
-		// 3 ¹Ø±Õ×ÊÔ´
+		// 3 å…³é—­èµ„æº
 		fs.close();
 		System.out.println("mkdir over");
 	}
 
-	// copy±¾µØÎÄ¼şµ½hdfs
+	// copyæœ¬åœ°æ–‡ä»¶åˆ°hdfs
 	@Test
 	public void testCopyFromLocalFile() throws Exception {
 		Configuration configuration = new Configuration();
-		// ²ÎÊıÓÅÏÈ¼¶ÅÅĞò£º£¨1£©¿Í»§¶Ë´úÂëÖĞÉèÖÃµÄÖµ >£¨2£©ClassPathÏÂµÄÓÃ»§×Ô¶¨ÒåÅäÖÃÎÄ¼ş >£¨3£©È»ºóÊÇ·şÎñÆ÷µÄÄ¬ÈÏÅäÖÃ
-		configuration.set("dfs.replication", "2"); // ´úÂë¼¶µÄÅäÖÃ²ÎÊı
+		// å‚æ•°ä¼˜å…ˆçº§æ’åºï¼šï¼ˆ1ï¼‰å®¢æˆ·ç«¯ä»£ç ä¸­è®¾ç½®çš„å€¼ >ï¼ˆ2ï¼‰ClassPathä¸‹çš„ç”¨æˆ·è‡ªå®šä¹‰é…ç½®æ–‡ä»¶ >ï¼ˆ3ï¼‰ç„¶åæ˜¯æœåŠ¡å™¨çš„é»˜è®¤é…ç½®
+		configuration.set("dfs.replication", "2"); // ä»£ç çº§çš„é…ç½®å‚æ•°
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// ÉÏ´«ÎÄ¼ş
+		// ä¸Šä¼ æ–‡ä»¶
 
-		fs.copyFromLocalFile(new Path("e:/flink×ÊÁÏÏÂÔØµØÖ·.txt"), new Path("/flink.txt"));
+		fs.copyFromLocalFile(new Path("e:/flinkèµ„æ–™ä¸‹è½½åœ°å€.txt"), new Path("/flink.txt"));
 
-		// ¹Ø±Õ×ÊÔ´
+		// å…³é—­èµ„æº
 		fs.close();
 		System.out.println("copyFromLocalFile over");
 
 	}
 
-	// HDFSÎÄ¼şÏÂÔØ
+	// HDFSæ–‡ä»¶ä¸‹è½½
 	@Test
 	public void testCopyToLocalFile() throws Exception {
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
-		// 2 Ö´ĞĞÏÂÔØ²Ù×÷
-		// boolean delSrc Ö¸ÊÇ·ñ½«Ô­ÎÄ¼şÉ¾³ı
-		// Path src Ö¸ÒªÏÂÔØµÄÎÄ¼şÂ·¾¶
-		// Path dst Ö¸½«ÎÄ¼şÏÂÔØµ½µÄÂ·¾¶
-		// boolean useRawLocalFileSystem ÊÇ·ñ¿ªÆôÎÄ¼şĞ£Ñé
+		// 2 æ‰§è¡Œä¸‹è½½æ“ä½œ
+		// boolean delSrc æŒ‡æ˜¯å¦å°†åŸæ–‡ä»¶åˆ é™¤
+		// Path src æŒ‡è¦ä¸‹è½½çš„æ–‡ä»¶è·¯å¾„
+		// Path dst æŒ‡å°†æ–‡ä»¶ä¸‹è½½åˆ°çš„è·¯å¾„
+		// boolean useRawLocalFileSystem æ˜¯å¦å¼€å¯æ–‡ä»¶æ ¡éªŒ
 		fs.copyToLocalFile(false, new Path("/flink.txt"), new Path("e:/flink-testCopyToLocalFile.txt"), true);
 
 		fs.close();
 	}
 
-	// HDFSÎÄ¼ş¼ĞÉ¾³ı
+	// HDFSæ–‡ä»¶å¤¹åˆ é™¤
 	@Test
 	public void testDelete() throws Exception {
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 Ö´ĞĞÉ¾³ı
-		fs.delete(new Path("/1108/"), true); // µİ¹éÉ¾³ıÎÄ¼ş¼Ğ¼°ÆäÄÚÈİ
+		// 2 æ‰§è¡Œåˆ é™¤
+		fs.delete(new Path("/1108/"), true); // é€’å½’åˆ é™¤æ–‡ä»¶å¤¹åŠå…¶å†…å®¹
 
-		// 3 ¹Ø±Õ×ÊÔ´
+		// 3 å…³é—­èµ„æº
 		fs.close();
 	}
 
-	// HDFSÎÄ¼şÃû¸ü¸Ä
+	// HDFSæ–‡ä»¶åæ›´æ”¹
 	@Test
 	public void testRename() throws Exception {
-		// 1 »ñÈ¡ÎÄ¼şÏµÍ³
+		// 1 è·å–æ–‡ä»¶ç³»ç»Ÿ
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 ĞŞ¸ÄÎÄ¼şÃû³Æ
+		// 2 ä¿®æ”¹æ–‡ä»¶åç§°
 		fs.rename(new Path("/flink.txt"), new Path("/flink-rename.txt"));
 
-		// 3 ¹Ø±Õ×ÊÔ´
+		// 3 å…³é—­èµ„æº
 		fs.close();
 	}
 
-	// HDFSÎÄ¼şÏêÇé²é¿´
+	// HDFSæ–‡ä»¶è¯¦æƒ…æŸ¥çœ‹
 
 	@Test
 	public void testListFiles() throws Exception {
-		// 1»ñÈ¡ÎÄ¼şÏµÍ³
+		// 1è·å–æ–‡ä»¶ç³»ç»Ÿ
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 »ñÈ¡ÎÄ¼şÏêÇé
+		// 2 è·å–æ–‡ä»¶è¯¦æƒ…
 		RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(new Path("/"), true);
 
 		while (listFiles.hasNext()) {
 			LocatedFileStatus status = listFiles.next();
 
-			// Êä³öÏêÇé
-			// ÎÄ¼şÃû³Æ
+			// è¾“å‡ºè¯¦æƒ…
+			// æ–‡ä»¶åç§°
 			System.out.println(status.getPath().getName());
-			// ³¤¶È
+			// é•¿åº¦
 			System.out.println(status.getLen());
-			// È¨ÏŞ
+			// æƒé™
 			System.out.println(status.getPermission());
-			// ·Ö×é
+			// åˆ†ç»„
 			System.out.println(status.getGroup());
 
-			// »ñÈ¡´æ´¢µÄ¿éĞÅÏ¢
+			// è·å–å­˜å‚¨çš„å—ä¿¡æ¯
 			BlockLocation[] blockLocations = status.getBlockLocations();
 
 			for (BlockLocation blockLocation : blockLocations) {
 
-				// »ñÈ¡¿é´æ´¢µÄÖ÷»ú½Úµã
+				// è·å–å—å­˜å‚¨çš„ä¸»æœºèŠ‚ç‚¹
 				String[] hosts = blockLocation.getHosts();
 
 				for (String host : hosts) {
@@ -138,26 +138,26 @@ public class hdfsclient {
 				}
 			}
 
-			System.out.println("-----------·Ö¸îÏß----------");
+			System.out.println("-----------åˆ†å‰²çº¿----------");
 		}
 
-		// 3 ¹Ø±Õ×ÊÔ´
+		// 3 å…³é—­èµ„æº
 		fs.close();
 	}
 
-	// HDFSÎÄ¼şºÍÎÄ¼ş¼ĞÅĞ¶Ï
+	// HDFSæ–‡ä»¶å’Œæ–‡ä»¶å¤¹åˆ¤æ–­
 	@Test
 	public void testListStatus() throws Exception {
-		// 1 »ñÈ¡ÎÄ¼şÅäÖÃĞÅÏ¢
+		// 1 è·å–æ–‡ä»¶é…ç½®ä¿¡æ¯
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 ÅĞ¶ÏÊÇÎÄ¼ş»¹ÊÇÎÄ¼ş¼Ğ
+		// 2 åˆ¤æ–­æ˜¯æ–‡ä»¶è¿˜æ˜¯æ–‡ä»¶å¤¹
 		FileStatus[] listStatus = fs.listStatus(new Path("/"));
 
 		for (FileStatus fileStatus : listStatus) {
 
-			// Èç¹ûÊÇÎÄ¼ş
+			// å¦‚æœæ˜¯æ–‡ä»¶
 			if (fileStatus.isFile()) {
 				System.out.println("f:" + fileStatus.getPath().getName());
 			} else {
@@ -165,108 +165,108 @@ public class hdfsclient {
 			}
 		}
 
-		// 3 ¹Ø±Õ×ÊÔ´
+		// 3 å…³é—­èµ„æº
 		fs.close();
 	}
 
-	// HDFSÎÄ¼şÉÏ´«
-	// 1£®ĞèÇó£º°Ñ±¾µØeÅÌÉÏµÄbanhua.txtÎÄ¼şÉÏ´«µ½HDFS¸ùÄ¿Â¼
+	// HDFSæ–‡ä»¶ä¸Šä¼ 
+	// 1ï¼éœ€æ±‚ï¼šæŠŠæœ¬åœ°eç›˜ä¸Šçš„banhua.txtæ–‡ä»¶ä¸Šä¼ åˆ°HDFSæ ¹ç›®å½•
 	@Test
 	public void testPutFileToHDFS() throws Exception {
-		// 1 »ñÈ¡ÎÄ¼şÅäÖÃĞÅÏ¢
+		// 1 è·å–æ–‡ä»¶é…ç½®ä¿¡æ¯
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2,´´½¨ÊäÈëÁ÷
-		FileInputStream fis = new FileInputStream(new File("e:/flink×ÊÁÏÏÂÔØµØÖ·.txt"));
+		// 2,åˆ›å»ºè¾“å…¥æµ
+		FileInputStream fis = new FileInputStream(new File("e:/flinkèµ„æ–™ä¸‹è½½åœ°å€.txt"));
 
-		// 3,»ñÈ¡Êä³öÁ÷
+		// 3,è·å–è¾“å‡ºæµ
 		FSDataOutputStream fos = fs.create(new Path("/flink-stream-upload.txt"));
 
-		// 4Á÷¶Ô¿½
+		// 4æµå¯¹æ‹·
 		IOUtils.copyBytes(fis, fos, configuration);
 
-		// 5 ¹Ø±Õ×ÊÔ´
+		// 5 å…³é—­èµ„æº
 		IOUtils.closeStream(fos);
 		IOUtils.closeStream(fis);
 		fs.close();
 	}
 
-	// HDFSÎÄ¼şÏÂÔØ
+	// HDFSæ–‡ä»¶ä¸‹è½½
 	@Test
 	public void testGetFileFromHDFS() throws Exception {
-		// 1 »ñÈ¡ÎÄ¼şÏµÍ³
+		// 1 è·å–æ–‡ä»¶ç³»ç»Ÿ
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 »ñÈ¡ÊäÈëÁ÷
+		// 2 è·å–è¾“å…¥æµ
 		FSDataInputStream fis = fs.open(new Path("/flink.txt"));
 
-		// 3 »ñÈ¡Êä³öÁ÷
+		// 3 è·å–è¾“å‡ºæµ
 		FileOutputStream fos = new FileOutputStream(new File("e:/flink-stream-download.txt"));
 
-		// 4 Á÷µÄ¶Ô¿½
+		// 4 æµçš„å¯¹æ‹·
 		IOUtils.copyBytes(fis, fos, configuration);
 
-		// 5 ¹Ø±Õ×ÊÔ´
+		// 5 å…³é—­èµ„æº
 		IOUtils.closeStream(fos);
 		IOUtils.closeStream(fis);
 		fs.close();
 	}
 
-	// ¶¨Î»ÎÄ¼ş¶ÁÈ¡
-	// 1£®ĞèÇó£º·Ö¿é¶ÁÈ¡HDFSÉÏµÄ´óÎÄ¼ş£¬±ÈÈç¸ùÄ¿Â¼ÏÂµÄ/hadoop-2.7.2.tar.gz
+	// å®šä½æ–‡ä»¶è¯»å–
+	// 1ï¼éœ€æ±‚ï¼šåˆ†å—è¯»å–HDFSä¸Šçš„å¤§æ–‡ä»¶ï¼Œæ¯”å¦‚æ ¹ç›®å½•ä¸‹çš„/hadoop-2.7.2.tar.gz
 	@Test
 	public void testFileSeek1() throws Exception {
-		// 1 »ñÈ¡ÎÄ¼şÏµÍ³
+		// 1 è·å–æ–‡ä»¶ç³»ç»Ÿ
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 »ñÈ¡ÊäÈëÁ÷
+		// 2 è·å–è¾“å…¥æµ
 		FSDataInputStream fis = fs.open(new Path("/hadoop-2.7.2.tar.gz"));
 
-		// 3 ´´½¨Êä³öÁ÷
+		// 3 åˆ›å»ºè¾“å‡ºæµ
 		FileOutputStream fos = new FileOutputStream(new File("f:/hadoop-2.7.2.tar.gz.part1"));
 
-		// 4 Á÷µÄ¿½±´
+		// 4 æµçš„æ‹·è´
 		byte[] buf = new byte[1024];//1m
-		//Ö»copy 128m
+		//åªcopy 128m
 		for (int i = 0; i < 1024 * 128; i++) {
 			fis.read(buf);
 			fos.write(buf);
 		}
 
-		// 5¹Ø±Õ×ÊÔ´
+		// 5å…³é—­èµ„æº
 		IOUtils.closeStream(fis);
 		IOUtils.closeStream(fos);
 		fs.close();
 	}
 
-	// ÏÂÔØµÚ¶ş¿é
-//	ºÏ²¢ÎÄ¼ş
-//	ÔÚWindowÃüÁî´°¿ÚÖĞ½øÈëµ½Ä¿Â¼E:\£¬È»ºóÖ´ĞĞÈçÏÂÃüÁî£¬¶ÔÊı¾İ½øĞĞºÏ²¢
+	// ä¸‹è½½ç¬¬äºŒå—
+//	åˆå¹¶æ–‡ä»¶
+//	åœ¨Windowå‘½ä»¤çª—å£ä¸­è¿›å…¥åˆ°ç›®å½•E:\ï¼Œç„¶åæ‰§è¡Œå¦‚ä¸‹å‘½ä»¤ï¼Œå¯¹æ•°æ®è¿›è¡Œåˆå¹¶
 //	type hadoop-2.7.2.tar.gz.part2 >> hadoop-2.7.2.tar.gz.part1
-//	ºÏ²¢Íê³Éºó£¬½«hadoop-2.7.2.tar.gz.part1ÖØĞÂÃüÃûÎªhadoop-2.7.2.tar.gz¡£½âÑ¹·¢ÏÖ¸Ãtar°ü·Ç³£ÍêÕû¡£
+//	åˆå¹¶å®Œæˆåï¼Œå°†hadoop-2.7.2.tar.gz.part1é‡æ–°å‘½åä¸ºhadoop-2.7.2.tar.gzã€‚è§£å‹å‘ç°è¯¥taråŒ…éå¸¸å®Œæ•´ã€‚
 	@Test
 	public void readFileSeek2() throws IOException, InterruptedException, URISyntaxException {
 
-		// 1 »ñÈ¡ÎÄ¼şÏµÍ³
+		// 1 è·å–æ–‡ä»¶ç³»ç»Ÿ
 		Configuration configuration = new Configuration();
 		FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "atguigu");
 
-		// 2 ´ò¿ªÊäÈëÁ÷
+		// 2 æ‰“å¼€è¾“å…¥æµ
 		FSDataInputStream fis = fs.open(new Path("/hadoop-2.7.2.tar.gz"));
 
-		// 3 ¶¨Î»ÊäÈëÊı¾İÎ»ÖÃ
-		fis.seek(1024 * 1024 * 128);//´Ó128m ¿ªÊ¼copy
+		// 3 å®šä½è¾“å…¥æ•°æ®ä½ç½®
+		fis.seek(1024 * 1024 * 128);//ä»128m å¼€å§‹copy
 
-		// 4 ´´½¨Êä³öÁ÷
+		// 4 åˆ›å»ºè¾“å‡ºæµ
 		FileOutputStream fos = new FileOutputStream(new File("f:/hadoop-2.7.2.tar.gz.part2"));
 
-		// 5 Á÷µÄ¶Ô¿½
+		// 5 æµçš„å¯¹æ‹·
 		IOUtils.copyBytes(fis, fos, configuration);
 
-		// 6 ¹Ø±Õ×ÊÔ´
+		// 6 å…³é—­èµ„æº
 		IOUtils.closeStream(fis);
 		IOUtils.closeStream(fos);
 	}
