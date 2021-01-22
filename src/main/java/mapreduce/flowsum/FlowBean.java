@@ -4,10 +4,12 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import org.apache.hadoop.hdfs.protocol.RollingUpgradeInfo.Bean;
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 // 1 实现writable接口
-public class FlowBean implements Writable {
+public class FlowBean implements WritableComparable<FlowBean> {
 
 	private long upFlow;
 	private long downFlow;
@@ -77,6 +79,20 @@ public class FlowBean implements Writable {
 		this.setUpFlow(upFlow);
 		this.setDownFlow(downFlow);
 		this.setSumFlow(upFlow + downFlow);
+	}
+
+	@Override
+	public int compareTo(FlowBean o) {
+		// 按照总流量大小,倒序排列
+		int result;
+		if (sumFlow > o.getSumFlow()) {
+			result = -1;
+		} else if (sumFlow < o.getSumFlow()) {
+			result = 1;
+		} else {
+			result = 0; // sumFlow值相同
+		}
+		return result;
 	}
 
 }

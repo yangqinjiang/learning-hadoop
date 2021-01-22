@@ -27,7 +27,7 @@ public class WholeRecordReader extends RecordReader<Text, BytesWritable> {
 
 	@Override
 	public void initialize(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
-		this.split = (FileSplit) split; //输入切片的文件对象
+		this.split = (FileSplit) split; // 输入切片的文件对象
 		this.conf = context.getConfiguration();// 配置
 	}
 
