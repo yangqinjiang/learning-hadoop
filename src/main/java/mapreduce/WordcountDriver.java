@@ -12,6 +12,8 @@ import org.apache.hadoop.mapreduce.lib.input.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import mapreduce.combiner.WordcountCombiner;
+
 public class WordcountDriver {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
@@ -36,13 +38,15 @@ public class WordcountDriver {
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 
+//		--------------Combine------------
 		// 如果不设置InputFormat，它默认用的是TextInputFormat.class
-		job.setInputFormatClass(CombineTextInputFormat.class);
-
+//		job.setInputFormatClass(CombineTextInputFormat.class);
 		// 虚拟存储切片最大值设置1024b
 		// 4194304 4mb
-		CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);
-
+//		CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);
+		// --------------Combiner------------
+		// 指定需要使用Combiner，以及用哪个类作为Combiner的逻辑
+		job.setCombinerClass(WordcountCombiner.class);
 		// 6 设置输入和输出路径
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
