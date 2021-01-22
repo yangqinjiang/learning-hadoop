@@ -15,7 +15,7 @@ public class NLineDriver {
 
 	public static void main(String[] args) throws Exception, IOException, InterruptedException {
 		// 输入输出路径需要根据自己电脑上实际的输入输出路径设置
-		args = new String[] {"e:/mr/input/nline/","e:/mr/output/nline2"};
+		args = new String[] { "e:/mr/input/nline/", "e:/mr/output/nline2" };
 
 		// 1 获取job对象
 		Configuration configuration = new Configuration();

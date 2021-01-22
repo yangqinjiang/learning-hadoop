@@ -229,8 +229,8 @@ public class hdfsclient {
 		FileOutputStream fos = new FileOutputStream(new File("f:/hadoop-2.7.2.tar.gz.part1"));
 
 		// 4 流的拷贝
-		byte[] buf = new byte[1024];//1m
-		//只copy 128m
+		byte[] buf = new byte[1024];// 1m
+		// 只copy 128m
 		for (int i = 0; i < 1024 * 128; i++) {
 			fis.read(buf);
 			fos.write(buf);
@@ -258,7 +258,7 @@ public class hdfsclient {
 		FSDataInputStream fis = fs.open(new Path("/hadoop-2.7.2.tar.gz"));
 
 		// 3 定位输入数据位置
-		fis.seek(1024 * 1024 * 128);//从128m 开始copy
+		fis.seek(1024 * 1024 * 128);// 从128m 开始copy
 
 		// 4 创建输出流
 		FileOutputStream fos = new FileOutputStream(new File("f:/hadoop-2.7.2.tar.gz.part2"));

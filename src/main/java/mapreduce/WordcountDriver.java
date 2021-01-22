@@ -16,7 +16,7 @@ public class WordcountDriver {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		System.out.println("Word count driver");
-		args = new String[] {"e:/mr/input/wordcount2.txt","e:/mr/output/wordcount1"};
+		args = new String[] { "e:/mr/input/wordcount2.txt", "e:/mr/output/wordcount1" };
 		// 1 获取配置信息以及封闭任务
 		Configuration configuration = new Configuration();
 		Job job = Job.getInstance(configuration);
@@ -39,10 +39,10 @@ public class WordcountDriver {
 		// 如果不设置InputFormat，它默认用的是TextInputFormat.class
 		job.setInputFormatClass(CombineTextInputFormat.class);
 
-		//虚拟存储切片最大值设置1024b
-		//  4194304   4mb
+		// 虚拟存储切片最大值设置1024b
+		// 4194304 4mb
 		CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);
-		
+
 		// 6 设置输入和输出路径
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));

@@ -14,7 +14,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class KVTextDriver {
 
 	public static void main(String[] args) throws Exception {
-		args = new String[] {"e:/mr/input/kvtext/","e:/mr/output/kvtext2"};
+		args = new String[] { "e:/mr/input/kvtext/", "e:/mr/output/kvtext2" };
 		Configuration conf = new Configuration();
 		// 设置切割符号
 		conf.set(KeyValueLineRecordReader.KEY_VALUE_SEPERATOR, " ");
@@ -36,12 +36,11 @@ public class KVTextDriver {
 
 		// 设置输入格式 如果不设置InputFormat，它默认用的是TextInputFormat.class
 		job.setInputFormatClass(KeyValueTextInputFormat.class);
-		
+
 		// 5 设置输入输出数据的路径(可以是多个路径参数)
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
 		// 6设置输出数据的路径
 		FileOutputFormat.setOutputPath(job, new Path(args[1]));
-		
 
 		// 7 提交job
 		boolean result = job.waitForCompletion(true);
