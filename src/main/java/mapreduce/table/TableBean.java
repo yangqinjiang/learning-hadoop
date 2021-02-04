@@ -85,7 +85,6 @@ public class TableBean implements Writable {
 		this.flag = in.readUTF();
 	}
 
-	
 	@Override
 	public String toString() {
 		return order_id + "\t" + pname + "\t" + amount;

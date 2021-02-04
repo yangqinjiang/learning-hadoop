@@ -25,7 +25,7 @@ public class DistributedCacheMapper extends Mapper<LongWritable, Text, Text, Nul
 		// 1, 获取缓存的文件
 		URI[] cacheFiles = context.getCacheFiles();
 		String path = cacheFiles[0].getPath().toString();
-		System.out.println("DDDDDDDDDD:"+path);
+		System.out.println("DDDDDDDDDD:" + path);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"));
 
 		String line;

@@ -1,4 +1,4 @@
-package mapreduce.weblog;
+package mapreduce.weblog2;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -11,8 +11,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class LogDriver {
 	public static void main(String[] args) throws Exception {
 		// 输入输出路径需要根据自己电脑上实际的输入输出路径设置
-		args = new String[] { "e:/mr/input/weblog", "e:/mr/output/weblog" };
-
+		args = new String[] { "e:/mr/input/weblog", "e:/mr/output/weblog2" };
 		// 1 获取job信息
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf);
@@ -26,9 +25,6 @@ public class LogDriver {
 		// 4 设置最终输出类型
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(NullWritable.class);
-
-		// 设置reducetask个数为0
-		job.setNumReduceTasks(0);
 
 		// 5 设置输入和输出路径
 		FileInputFormat.setInputPaths(job, new Path(args[0]));
