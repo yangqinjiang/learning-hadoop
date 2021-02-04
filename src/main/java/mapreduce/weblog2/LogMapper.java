@@ -19,8 +19,11 @@ public class LogMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 		LogBean bean = parseLog(line, context);
 
 		if (!bean.isValid()) {
+			context.getCounter("map", "false").increment(1);
 			return;
 		}
+		// 系统计数器
+		context.getCounter("map", "true").increment(1);
 
 		k.set(bean.toString());
 
@@ -57,11 +60,9 @@ public class LogMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
 			if (Integer.parseInt(logBean.getStatus()) >= 400) {
 				logBean.setValid(false);
 			}
-			// 系统计数器
-			context.getCounter("map", "true").increment(1);
+
 		} else {
 			logBean.setValid(false);
-			context.getCounter("map", "false").increment(1);
 		}
 
 		return logBean;

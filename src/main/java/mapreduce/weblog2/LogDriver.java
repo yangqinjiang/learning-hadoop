@@ -7,7 +7,10 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-
+/**
+ * 数据清洗案例实操-复杂解析版
+ *
+ */
 public class LogDriver {
 	public static void main(String[] args) throws Exception {
 		// 输入输出路径需要根据自己电脑上实际的输入输出路径设置
