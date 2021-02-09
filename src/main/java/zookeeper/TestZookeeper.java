@@ -12,8 +12,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestZookeeper {
-	private static String connectString = "hadoop102:2181,hadoop103:2181,hadoop104:2181";
-	private static int sessionTimeout = 2000;
+	private static String connectString = zkContants.connectString;
+	private static int sessionTimeout = zkContants.sessionTimeout;
 	private ZooKeeper zkClient = null;
 
 	@Before
@@ -65,7 +65,7 @@ public class TestZookeeper {
 	}
 
 	public static void main(String[] args) {
-		
+
 	}
 
 }
